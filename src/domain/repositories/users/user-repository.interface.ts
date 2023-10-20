@@ -1,10 +1,11 @@
-import { CreateUserDto } from 'src/application/dtos/users/user-create.dto';
+import { UserSignInDto } from 'src/application/dtos/users/user-sign-in.dto';
+import { UserSignUpDto } from 'src/application/dtos/users/user-sign-up.dto';
 import { UpdateUserDto } from 'src/application/dtos/users/user-update.dto';
 import { User } from 'src/domain/models/users/user.model';
 
 export interface IUserRepository {
-  create(createUserDto: CreateUserDto): Promise<User>;
-  findOne(createUserDto: UpdateUserDto): Promise<User>;
-  findAll(): Promise<User[]>;
-  remove(id: string): Promise<User>;
+  signUp(userSignUpDto: UserSignUpDto): Promise<User>;
+  signIn(userSignInDto: UserSignInDto): Promise<User>;
+  getProfile(userId: string): Promise<User>;
+  updateUser(userId: string, updateUserDto: UpdateUserDto): Promise<User>;
 }
