@@ -1,17 +1,17 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { MongooseModule } from '@nestjs/mongoose';
 import { CoreModule } from './core/core.module';
 import { InfrastructureModule } from './infrastructure/infrastructure.module';
+import { UserRepositoryAdapter } from './infrastructure/adapters/user-repository.adapter';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost/nestjs_mongodb_example'),
-    CoreModule,
     InfrastructureModule,
+    CoreModule.register({
+      modules: [InfrastructureModule],
+      adapters: {
+        userRepository: UserRepositoryAdapter,
+      },
+    }),
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
